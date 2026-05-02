@@ -15,11 +15,23 @@ $sb_patient_photo = !empty($_SESSION['user_photo']) ? "../uploads/".$_SESSION['u
         </div>
     </div>
 
+<?php
+// Count unread notifications
+$_notif_count = 0;
+if (!empty($_SESSION['user_id'])) {
+    $nr = $conn->query("SELECT COUNT(*) as c FROM notifications WHERE user_id={$_SESSION['user_id']} AND is_read=0");
+    if ($nr) $_notif_count = (int)$nr->fetch_assoc()['c'];
+}
+?>
     <a href="dashboard.php"        class="nav-link <?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>"><i class="fas fa-th-large"></i> Dashboard</a>
     <a href="book_appointment.php" class="nav-link <?php echo $current_page == 'book_appointment.php' ? 'active' : ''; ?>"><i class="far fa-calendar-plus"></i> Book Appointment</a>
     <a href="my_appointments.php"  class="nav-link <?php echo $current_page == 'my_appointments.php' ? 'active' : ''; ?>"><i class="far fa-calendar-alt"></i> My Appointments</a>
     <a href="chat.php"             class="nav-link <?php echo $current_page == 'chat.php' ? 'active' : ''; ?>"><i class="far fa-comment-dots"></i> Messages</a>
     <a href="medical_records.php"  class="nav-link <?php echo $current_page == 'medical_records.php' ? 'active' : ''; ?>"><i class="far fa-file-medical"></i> Medical Records</a>
+    <a href="notifications.php"    class="nav-link <?php echo $current_page == 'notifications.php' ? 'active' : ''; ?>" style="position:relative;">
+        <i class="far fa-bell"></i> Notifications
+        <?php if ($_notif_count > 0): ?><span style="background:#ef4444;color:white;border-radius:20px;font-size:10px;padding:1px 6px;position:absolute;right:12px;"><?php echo $_notif_count; ?></span><?php endif; ?>
+    </a>
     <a href="profile.php"          class="nav-link <?php echo $current_page == 'profile.php' ? 'active' : ''; ?>"><i class="far fa-user"></i> Profile</a>
 
     <div class="sidebar-spacer"></div>

@@ -16,8 +16,14 @@ $sb_admin_photo = !empty($_SESSION['user_photo']) ? "../uploads/".$_SESSION['use
         <a href="appointments.php" class="nav-link <?php echo $current_page == 'appointments.php' ? 'active' : ''; ?>">
             <i class="far fa-calendar-check"></i> Appointments
         </a>
+        <a href="payments.php" class="nav-link <?php echo $current_page == 'payments.php' ? 'active' : ''; ?>">
+            <i class="fas fa-credit-card"></i> Payments
+        </a>
         <a href="reports.php" class="nav-link <?php echo $current_page == 'reports.php' ? 'active' : ''; ?>">
             <i class="fas fa-chart-bar"></i> Reports
+        </a>
+        <a href="activity_logs.php" class="nav-link <?php echo $current_page == 'activity_logs.php' ? 'active' : ''; ?>">
+            <i class="fas fa-list-alt"></i> Activity Logs
         </a>
         <a href="profile.php" class="nav-link <?php echo $current_page == 'profile.php' ? 'active' : ''; ?>">
             <i class="far fa-user"></i> Profile

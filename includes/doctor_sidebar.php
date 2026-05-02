@@ -19,6 +19,8 @@ $sb_doctor_photo = !empty($_SESSION['user_photo']) ? "../uploads/".$_SESSION['us
     <a href="chat.php"             class="nav-link <?php echo $current_page == 'chat.php' ? 'active' : ''; ?>"><i class="far fa-comment-dots"></i> Messages</a>
     <a href="manage_patients.php"  class="nav-link <?php echo $current_page == 'manage_patients.php' ? 'active' : ''; ?>"><i class="fas fa-users"></i> Patients</a>
     <a href="prescriptions.php"    class="nav-link <?php echo $current_page == 'prescriptions.php' ? 'active' : ''; ?>"><i class="fas fa-file-prescription"></i> Prescriptions</a>
+    <a href="followups.php"        class="nav-link <?php echo $current_page == 'followups.php' ? 'active' : ''; ?>"><i class="fas fa-bell"></i> Follow-ups</a>
+    <a href="schedule.php"         class="nav-link <?php echo $current_page == 'schedule.php' ? 'active' : ''; ?>"><i class="far fa-clock"></i> My Schedule</a>
     <a href="manage_calendar.php"  class="nav-link <?php echo $current_page == 'manage_calendar.php' ? 'active' : ''; ?>"><i class="far fa-calendar-alt"></i> Manage Calendar</a>
     <a href="profile.php"          class="nav-link <?php echo $current_page == 'profile.php' ? 'active' : ''; ?>"><i class="far fa-user"></i> Profile</a>
 
