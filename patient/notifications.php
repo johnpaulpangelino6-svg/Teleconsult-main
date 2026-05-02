@@ -62,7 +62,7 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM notifications WHERE user_id = 
 </head>
 <body>
 <?php include '../includes/patient_sidebar.php'; ?>
-<main class="main-content">
+<main class="main">
     <div class="notif-page">
         <div class="notif-header">
             <h1><i class="far fa-bell" style="color:#3b82f6; margin-right:12px;"></i> Notifications

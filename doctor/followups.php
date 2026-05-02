@@ -92,7 +92,7 @@ $patients = $conn->query("
 </head>
 <body>
 <?php include '../includes/doctor_sidebar.php'; ?>
-<main class="main-content" style="margin-left:260px; padding:2rem;">
+<main class="main">
     <div style="margin-bottom:24px;">
         <h1 style="font-size:1.6rem;font-weight:700;"><i class="fas fa-bell" style="color:#3b82f6;margin-right:12px;"></i>Follow-up Reminders</h1>
         <p style="color:#94a3b8;font-size:14px;">Track and manage patient follow-up schedules</p>

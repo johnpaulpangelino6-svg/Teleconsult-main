@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $appt && !$existing_payment) {
     }
 
     $stmt = $conn->prepare("INSERT INTO payments (appointment_id, patient_id, amount, method, gcash_ref, notes, proof_photo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iidsss", $appointment_id, $user_id, $amount, $method, $gcash_ref, $notes, $proof_path);
+    $stmt->bind_param("iidssss", $appointment_id, $user_id, $amount, $method, $gcash_ref, $notes, $proof_path);
     if ($stmt->execute()) {
         // Update appointment payment status
         $conn->query("UPDATE appointments SET payment_status = 'pending' WHERE id = $appointment_id");
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $appt && !$existing_payment) {
 </head>
 <body>
 <?php include '../includes/patient_sidebar.php'; ?>
-<main class="main-content">
+<main class="main">
     <div class="payment-page">
         <div class="pay-card">
             <div class="pay-title"><i class="fas fa-credit-card" style="color:#3b82f6;margin-right:10px;"></i>Consultation Payment</div>

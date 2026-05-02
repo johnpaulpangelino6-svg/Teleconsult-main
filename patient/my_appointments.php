@@ -11,10 +11,12 @@ $patient_id   = $_SESSION['user_id'];
 $patient_name = $_SESSION['user_name'] ?? "Patient";
 $patient_photo = !empty($_SESSION['user_photo']) ? $_SESSION['user_photo'] : "https://ui-avatars.com/api/?name=".urlencode($patient_name)."&background=3b82f6&color=fff";
 
-// FETCH APPOINTMENTS WITH DOCTOR NAME
-$sql = "SELECT a.*, u.name AS doctor_name 
+// FETCH APPOINTMENTS WITH DOCTOR NAME + PAYMENT STATUS
+$sql = "SELECT a.*, u.name AS doctor_name, u.specialization,
+        p.status AS pay_status, p.method AS pay_method, p.id AS pay_id
         FROM appointments a
         JOIN users u ON a.doctor_id = u.id
+        LEFT JOIN payments p ON p.appointment_id = a.id AND p.patient_id = a.patient_id
         WHERE a.patient_id = '$patient_id'
         ORDER BY a.appointment_date DESC";
 $result = $conn->query($sql);
@@ -65,7 +67,9 @@ $counts = $conn->query($count_sql)->fetch_assoc();
         <div class="cards-grid">
             <?php while($row = $result->fetch_assoc()): 
                 $s = $row['status'];
-                $b_cls = $s === 'Approved' ? 'badge-approved' : ($s === 'Rejected' ? 'badge-rejected' : 'badge-pending');
+                $b_cls = $s === 'Approved' ? 'badge-approved' : ($s === 'Rejected' ? 'badge-rejected' : ($s === 'Completed' ? 'badge-completed' : 'badge-pending'));
+                $pay_status = $row['pay_status'] ?? null;
+                $pay_method = $row['pay_method'] ?? null;
             ?>
                 <div class="appt-card">
                     <div class="card-top">
@@ -88,6 +92,19 @@ $counts = $conn->query($count_sql)->fetch_assoc();
                         </div>
                     </div>
 
+                    <!-- PAYMENT STATUS SECTION -->
+                    <div class="payment-status-row">
+                        <?php if (!$pay_status): ?>
+                            <span class="pay-badge pay-unpaid"><i class="fas fa-times-circle"></i> Unpaid</span>
+                        <?php elseif ($pay_status == 'pending'): ?>
+                            <span class="pay-badge pay-pending"><i class="fas fa-clock"></i> Payment Pending Verification</span>
+                        <?php elseif ($pay_status == 'verified'): ?>
+                            <span class="pay-badge pay-verified"><i class="fas fa-check-circle"></i> Paid via <?php echo strtoupper($pay_method); ?></span>
+                        <?php elseif ($pay_status == 'rejected'): ?>
+                            <span class="pay-badge pay-rejected"><i class="fas fa-times-circle"></i> Payment Rejected</span>
+                        <?php endif; ?>
+                    </div>
+
                     <div class="action-bar">
                         <?php if ($s == 'Pending'): ?>
                             <form method="POST" action="cancel_appointment.php" style="flex:1; display:flex;">
@@ -100,6 +117,19 @@ $counts = $conn->query($count_sql)->fetch_assoc();
                             <a href="chat.php?contact_id=<?php echo $row['doctor_id']; ?>" class="btn-action btn-join">
                                 <i class="fas fa-comment-medical"></i> Consult
                             </a>
+                            <?php if (!$pay_status || $pay_status == 'rejected'): ?>
+                            <a href="payment.php?appointment_id=<?php echo $row['id']; ?>" class="btn-action btn-pay">
+                                <i class="fas fa-credit-card"></i> Pay Now
+                            </a>
+                            <?php endif; ?>
+                        <?php elseif ($s == 'Completed'): ?>
+                            <?php if (!$pay_status || $pay_status == 'rejected'): ?>
+                            <a href="payment.php?appointment_id=<?php echo $row['id']; ?>" class="btn-action btn-pay" style="flex:1;">
+                                <i class="fas fa-credit-card"></i> Pay Now
+                            </a>
+                            <?php else: ?>
+                            <button class="btn-action btn-details" disabled style="opacity:0.5; cursor:not-allowed; flex:1;">Completed</button>
+                            <?php endif; ?>
                         <?php else: ?>
                             <button class="btn-action btn-details" disabled style="opacity:0.5; cursor:not-allowed;">View Details</button>
                         <?php endif; ?>

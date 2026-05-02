@@ -65,7 +65,7 @@ while ($row = $res->fetch_assoc()) $sched_data[$row['day_of_week']] = $row;
 </head>
 <body>
 <?php include '../includes/doctor_sidebar.php'; ?>
-<main class="main-content" style="margin-left:260px; padding:2rem;">
+<main class="main">
     <div class="sched-page">
         <div class="sched-card">
             <div class="sched-title"><i class="far fa-clock" style="color:#3b82f6;margin-right:10px;"></i>My Availability Schedule</div>
