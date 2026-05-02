@@ -27,37 +27,29 @@ body {
 
 /* ── FIXED SIDEBAR ── */
 .sidebar {
-    position: fixed !important;
-    top: 0; 
+    position: fixed;
+    top: 0;
     left: 0;
     width: var(--sidebar-w);
     height: 100vh;
-    background: #020617 !important;
+    background: #020617;
     border-right: 1px solid var(--border);
-    padding: 24px 16px;
     display: flex;
     flex-direction: column;
-    z-index: 999;
+    padding: 24px 16px;
+    z-index: 100;
 }
 
 .logo {
-    display: flex; 
-    align-items: center; 
-    gap: 12px;
-    padding: 0 8px; 
-    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 8px; margin-bottom: 24px;
 }
-
 .logo-img {
-    width: 52px; height: 52px; object-fit: contain; border-radius: 50%; flex-shrink: 0; background: #FFFFFF !important; padding: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 48px; height: 48px; object-fit: contain; border-radius: 50%; flex-shrink: 0; background: #FFFFFF !important; padding: 4px;
 }
-
-.logo-text {
-    display: flex; flex-direction: column; gap: 2px;
-}
-
-.logo-text b { font-size: 14px; font-weight: 700; color: #FFFFFF !important; line-height: 1.2; display: block; }
-.logo-text span { font-size: 10px; color: #94a3b8 !important; line-height: 1.3; max-width: 160px; display: block; }
+.logo-text { display: flex; flex-direction: column; gap: 2px; }
+.logo-text b { font-size: 16px; font-weight: 700; color: #FFFFFF !important; display: block; line-height: 1.2; }
+.logo-text span { font-size: 11px; color: #94a3b8 !important; display: block; line-height: 1.3; max-width: 150px; }
 
 .user-card {
     display: flex; 
@@ -118,8 +110,9 @@ body {
 .main {
     margin-left: var(--sidebar-w);
     flex: 1;
-    padding: 40px 60px;
+    padding: 32px 36px;
     min-width: 0;
+    min-height: 100vh;
 }
 
 .page-header {

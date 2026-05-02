@@ -18,6 +18,7 @@ $query = "
         u.age, 
         u.gender, 
         u.photo,
+        u.last_seen,
         (SELECT MAX(created_at) FROM medical_records WHERE patient_id = u.id) as last_medical_record,
         (SELECT MAX(appointment_date) FROM appointments WHERE patient_id = u.id AND status = 'Approved') as last_appointment
     FROM users u
@@ -89,13 +90,25 @@ function getAvatar($name, $photo) {
                             <img src="<?php echo getAvatar($row['name'], $row['photo']); ?>" alt="avatar">
                         </div>
                         <div class="info">
-                            <h2><?php echo htmlspecialchars($row['name']); ?></h2>
+                            <h2>
+                                <?php echo htmlspecialchars($row['name']); ?> 
+                                - <span class="status-text user-status-<?php echo $row['id']; ?>" style="font-size: 14px; font-weight: normal;">
+                                    <?php 
+                                        $threshold = strtotime('-2 minutes');
+                                        $last_seen = $row['last_seen'] ? strtotime($row['last_seen']) : 0;
+                                        $isActive = $last_seen >= $threshold;
+                                        echo $isActive ? '<span style="color: #22c55e;">Active</span>' : '<span style="color: #ef4444;">Inactive</span>';
+                                    ?>
+                                </span>
+                            </h2>
                             <p>
                                 <?php echo $row['age'] ? $row['age'] . ' years' : 'Age N/A'; ?> 
                                 • 
                                 <?php echo htmlspecialchars($row['gender'] ?? 'Gender N/A'); ?>
                             </p>
-                            <span class="badge">Active</span>
+                            <span class="badge status-badge user-badge-<?php echo $row['id']; ?>" style="background: <?php echo $isActive ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)'; ?>; color: <?php echo $isActive ? '#22c55e' : '#ef4444'; ?>;">
+                                <?php echo $isActive ? 'Active' : 'Inactive'; ?>
+                            </span>
                         </div>
                     </div>
                     
@@ -130,12 +143,43 @@ function getAvatar($name, $photo) {
     const searchInput = document.querySelector('input[name="search"]');
     let timeout = null;
 
-    searchInput.addEventListener('input', function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            this.form.submit();
-        }, 500);
-    });
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                this.form.submit();
+            }, 500);
+        });
+    }
+
+    // Real-time status polling
+    setInterval(() => {
+        fetch('../includes/get_user_statuses.php')
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    for (const [userId, status] of Object.entries(data.data)) {
+                        const statusTexts = document.querySelectorAll('.user-status-' + userId);
+                        const statusBadges = document.querySelectorAll('.user-badge-' + userId);
+                        
+                        const isActive = status === 'Active';
+                        const color = isActive ? '#22c55e' : '#ef4444';
+                        const bgColor = isActive ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)';
+                        
+                        statusTexts.forEach(el => {
+                            el.innerHTML = `<span style="color: ${color};">${status}</span>`;
+                        });
+                        
+                        statusBadges.forEach(el => {
+                            el.textContent = status;
+                            el.style.color = color;
+                            el.style.background = bgColor;
+                        });
+                    }
+                }
+            })
+            .catch(err => console.error('Status fetch error:', err));
+    }, 15000); // Poll every 15 seconds
 </script>
 
 </body>

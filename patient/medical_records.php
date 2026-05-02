@@ -88,13 +88,7 @@ if ($_SESSION['role'] === 'doctor') {
             <h1>Medical Records: <?php echo htmlspecialchars($target_name); ?></h1>
             <p><?php echo ($target_patient_id === $user_id) ? "Your personal clinical history and prescriptions" : "Clinical history and prescriptions for " . htmlspecialchars($target_name); ?></p>
         </div>
-        <div class="top-user">
-            <img src="<?php echo htmlspecialchars($target_photo); ?>" alt="avatar">
-            <div>
-                <div class="tname"><?php echo htmlspecialchars($target_name); ?></div>
-                <div class="trole">Patient</div>
-            </div>
-        </div>
+
     </div>
 
     <!-- TABS -->

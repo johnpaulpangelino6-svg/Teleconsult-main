@@ -8,3 +8,14 @@ $base_path = (dirname($_SERVER['PHP_SELF']) == '/Teleconsult-main' || dirname($_
         <span style="font-size: 11px; color: #94a3b8; display: block; line-height: 1.3; max-width: 150px;">Healthcare for All</span>
     </div>
 </div>
+<?php if (isset($_SESSION['user_id'])): ?>
+<script>
+    function sendHeartbeat() {
+        const basePath = "<?php echo $base_path; ?>";
+        fetch(basePath + 'includes/heartbeat.php').catch(() => {});
+    }
+    // Send heartbeat immediately on load, then every 60 seconds
+    sendHeartbeat();
+    setInterval(sendHeartbeat, 60000);
+</script>
+<?php endif; ?>

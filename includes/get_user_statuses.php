@@ -1,18 +1,25 @@
 <?php
+session_start();
 include '../config.php';
 
-$sql = "SELECT id, last_activity, is_online FROM users WHERE role = 'patient'";
-$result = $conn->query($sql);
-
-$statuses = [];
-$current_time = time();
-
-while ($row = $result->fetch_assoc()) {
-    $last_time = strtotime($row['last_activity']);
-    $is_active = ($row['is_online'] && ($current_time - $last_time < 120));
-    $statuses[$row['id']] = $is_active ? 'Active' : 'Inactive';
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+    exit();
 }
 
-header('Content-Type: application/json');
-echo json_encode($statuses);
+// Fetch the last_seen for all users
+// Define a threshold for "Active" (e.g., 2 minutes)
+$threshold = date('Y-m-d H:i:s', strtotime('-2 minutes'));
+
+$stmt = $conn->prepare("SELECT id, last_seen FROM users");
+$stmt->execute();
+$result = $stmt->get_result();
+
+$statuses = [];
+while ($row = $result->fetch_assoc()) {
+    $isActive = ($row['last_seen'] !== null && $row['last_seen'] >= $threshold);
+    $statuses[$row['id']] = $isActive ? 'Active' : 'Inactive';
+}
+
+echo json_encode(['status' => 'success', 'data' => $statuses]);
 ?>
