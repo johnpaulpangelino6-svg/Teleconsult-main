@@ -85,7 +85,7 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM notifications WHERE user_id = 
                 <div class="notif-icon <?php echo $ni; ?>"><i class="<?php echo $fa; ?>"></i></div>
                 <div class="notif-body">
                     <div class="notif-title"><?php echo htmlspecialchars($n['title']); ?></div>
-                    <div class="notif-msg"><?php echo htmlspecialchars($n['message']); ?></div>
+                    <div class="notif-msg"><?php echo nl2br(htmlspecialchars($n['message'])); ?></div>
                     <div class="notif-time"><?php echo date('M d, Y h:i A', strtotime($n['created_at'])); ?></div>
                 </div>
                 <?php if (!$n['is_read']): ?><div class="unread-dot"></div><?php endif; ?>

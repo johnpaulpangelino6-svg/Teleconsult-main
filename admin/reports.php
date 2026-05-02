@@ -304,9 +304,7 @@ if ($report_type == 'appointments') {
             <div class="report-header">
                 <div class="rh-left">
                     <?php 
-                        $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
-                        $root_path = dirname($_SERVER['PHP_SELF']) == '/admin' ? '/Teleconsult-main' : '';
-                        $logo_url = $base_url . $root_path . "/uploads/1777630001_logo%20system.png";
+                        $logo_url = "../uploads/1777630001_logo%20system.png";
                     ?>
                     <!-- Use absolute URL for html2pdf compatibility -->
                     <img src="<?php echo $logo_url; ?>" class="rh-logo" alt="Logo" crossorigin="anonymous">

@@ -45,14 +45,16 @@ $ds->bind_param("iiii", $user_id, $user_id, $user_id, $user_id);
 $ds->execute();
 $doctors_res = $ds->get_result();
 
-// Get contact (doctor) name
+// Get contact (doctor) name and photo
 $contact_name = '';
+$contact_photo = '';
 if ($contact_id > 0) {
-    $ns = $conn->prepare("SELECT name FROM users WHERE id = ? AND role = 'doctor'");
+    $ns = $conn->prepare("SELECT name, photo FROM users WHERE id = ? AND role = 'doctor'");
     $ns->bind_param("i", $contact_id);
     $ns->execute();
     $nr = $ns->get_result()->fetch_assoc();
     $contact_name = $nr['name'] ?? '';
+    $contact_photo = !empty($nr['photo']) ? '../uploads/'.$nr['photo'] : '';
     $ns->close();
 }
 ?>
@@ -92,7 +94,7 @@ if ($contact_id > 0) {
            data-name="<?php echo strtolower(htmlspecialchars($row['name'])); ?>">
             <div class="c-avatar">
                 <?php if (!empty($row['photo'])): ?>
-                    <img src="<?php echo htmlspecialchars($row['photo']); ?>" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+                    <img src="../uploads/<?php echo htmlspecialchars($row['photo']); ?>" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
                 <?php else: ?>
                     <i class="fas fa-user-md"></i>
                 <?php endif; ?>
@@ -118,7 +120,13 @@ if ($contact_id > 0) {
     <?php if ($contact_id > 0 && !empty($contact_name)): ?>
         <div class="chat-header">
             <div class="ch-left">
-                <div class="ch-avatar"><i class="fas fa-user-md" style="color:white; font-size:15px;"></i></div>
+                <div class="ch-avatar">
+                    <?php if (!empty($contact_photo)): ?>
+                        <img src="<?php echo htmlspecialchars($contact_photo); ?>" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+                    <?php else: ?>
+                        <i class="fas fa-user-md" style="color:white; font-size:15px;"></i>
+                    <?php endif; ?>
+                </div>
                 <div>
                     <div class="ch-name">Dr. <?php echo htmlspecialchars($contact_name); ?></div>
                     <div class="ch-status">Online</div>

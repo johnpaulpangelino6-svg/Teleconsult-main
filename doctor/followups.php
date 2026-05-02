@@ -21,7 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_followup'])) {
 
     $sql = "INSERT INTO followups (appointment_id, patient_id, doctor_id, due_date, note) VALUES (" . ($appt_id === 'NULL' ? 'NULL' : $appt_id) . ", $patient_id, $doctor_id, '$due_date', '$note')";
     if ($conn->query($sql)) {
-        notify($conn, $patient_id, 'Follow-up Reminder', "Dr. {$_SESSION['user_name']} has scheduled a follow-up for you on " . date('M d, Y', strtotime($due_date)) . ".", 'followup', '../patient/my_appointments.php');
+        $notif_msg = "Dr. {$_SESSION['user_name']} has scheduled a follow-up for you on " . date('M d, Y', strtotime($due_date)) . ".";
+        if (!empty($note)) {
+            $notif_msg .= "\nDoctor's Note: " . $note;
+        }
+        notify($conn, $patient_id, 'Follow-up Reminder', $notif_msg, 'followup', '../patient/my_appointments.php');
         log_activity($conn, $doctor_id, 'doctor', 'Added follow-up for patient ID ' . $patient_id);
         $success = "Follow-up added and patient notified!";
     } else {
