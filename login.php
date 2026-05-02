@@ -79,7 +79,14 @@ ob_end_flush(); // flush output
 
 <div class="container">
 
-<?php include 'includes/logo.php'; ?>
+<div class="logo" style="background: transparent;">
+    <img src="uploads/1777630001_logo%20system.png" alt="Logo" style="width: 125px !important; height: 125px !important; object-fit: contain; border-radius: 10px;">
+</div>
+
+
+
+<h2>Community Teleconsult</h2>
+<p class="subtitle">Online Medical Consultation System for Local Communities</p>
 
 <?php if ($success) echo "<p class='success'>$success</p>"; ?>
 <?php if ($error) echo "<p class='error'>$error</p>"; ?>

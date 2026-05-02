@@ -28,6 +28,21 @@
         }
         .sidebar::-webkit-scrollbar { width: 0; }
 
+        .logo {
+            display: flex; align-items: center; gap: 10px;
+            padding: 0 8px;
+            margin-bottom: 24px;
+        }
+        .system-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .logo-text b { font-size: 16px; color: white; display: block; line-height: 1.2; }
+        .logo-text span { font-size: 11px; color: #94a3b8; display: block; }
+
         .user-card {
             display: flex; align-items: center; gap: 10px;
             background: rgba(255,255,255,0.04);

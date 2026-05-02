@@ -5,7 +5,7 @@ $sb_doctor_photo = !empty($_SESSION['user_photo']) ? "../uploads/".$_SESSION['us
 ?>
 <!-- FIXED SIDEBAR -->
 <aside class="sidebar">
-    <?php include 'logo.php'; ?>
+    <?php include __DIR__ . '/logo.php'; ?>
 
     <div class="user-card">
         <img src="<?php echo htmlspecialchars($sb_doctor_photo); ?>" alt="avatar">

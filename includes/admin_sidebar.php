@@ -4,7 +4,7 @@ $sb_admin_name = $_SESSION['user_name'] ?? 'Admin';
 $sb_admin_photo = !empty($_SESSION['user_photo']) ? "../uploads/".$_SESSION['user_photo'] : "https://ui-avatars.com/api/?name=".urlencode($sb_admin_name)."&background=020617&color=fff";
 ?>
 <aside class="sidebar">
-    <?php include 'logo.php'; ?>
+    <?php include __DIR__ . '/logo.php'; ?>
 
     <div class="nav-section">
         <a href="dashboard.php" class="nav-link <?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>">
