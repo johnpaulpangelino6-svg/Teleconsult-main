@@ -38,11 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $appt && !$existing_payment) {
     $proof_path = null;
 
     // Handle proof photo upload
-    if (!empty($_FILES['proof']['name'])) {
-        $ext = pathinfo($_FILES['proof']['name'], PATHINFO_EXTENSION);
+    $proof_file = !empty($_FILES['proof']['name']) ? $_FILES['proof'] : (!empty($_FILES['proof_barangay']['name']) ? $_FILES['proof_barangay'] : null);
+    if ($proof_file) {
+        $ext = pathinfo($proof_file['name'], PATHINFO_EXTENSION);
         $filename = 'payment_' . time() . '_' . $user_id . '.' . $ext;
         $dest = '../uploads/' . $filename;
-        if (move_uploaded_file($_FILES['proof']['tmp_name'], $dest)) {
+        if (move_uploaded_file($proof_file['tmp_name'], $dest)) {
             $proof_path = $filename;
         }
     }
@@ -161,6 +162,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $appt && !$existing_payment) {
                     </div>
 
                     <div id="gcash-fields">
+                        <div style="background: rgba(0, 112, 186, 0.1); border: 1px solid rgba(0, 112, 186, 0.3); padding: 16px; border-radius: 12px; margin-bottom: 20px;">
+                            <h4 style="color: #3b82f6; margin-bottom: 8px;"><i class="fas fa-mobile-alt"></i> Send GCash Payment to:</h4>
+                            <p style="font-size: 14px; margin-bottom: 4px;">Name: <strong>Community Teleconsult</strong></p>
+                            <p style="font-size: 14px; margin-bottom: 12px;">Number: <strong style="font-size: 16px; color: white;">0912 345 6789</strong></p>
+                            <p style="font-size: 12px; color: #94a3b8;">After sending, please enter the reference number below and upload a screenshot of your receipt.</p>
+                        </div>
                         <div class="form-group">
                             <label>GCash Reference Number</label>
                             <input type="text" name="gcash_ref" placeholder="e.g. 1234567890">
@@ -168,6 +175,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $appt && !$existing_payment) {
                         <div class="form-group">
                             <label>Upload Payment Screenshot (optional)</label>
                             <input type="file" name="proof" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div id="barangay-fields" style="display: none;">
+                        <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); padding: 16px; border-radius: 12px; margin-bottom: 20px;">
+                            <h4 style="color: #22c55e; margin-bottom: 8px;"><i class="fas fa-info-circle"></i> Barangay Cash Instructions:</h4>
+                            <p style="font-size: 13px; color: #cbd5e1;">Please visit your local Barangay Health Center to make the cash payment. The barangay health worker will provide you with a receipt or confirmation note.</p>
+                            <p style="font-size: 13px; color: #cbd5e1; margin-top: 8px;">You can upload a photo of the barangay receipt here or simply submit the payment request for admin verification.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Barangay Receipt (optional)</label>
+                            <input type="file" name="proof_barangay" accept="image/*">
                         </div>
                     </div>
 
@@ -193,6 +212,7 @@ function selectMethod(el, method) {
     el.classList.add('selected');
     el.querySelector('input').checked = true;
     document.getElementById('gcash-fields').style.display = method === 'gcash' ? 'block' : 'none';
+    document.getElementById('barangay-fields').style.display = method === 'barangay_cash' ? 'block' : 'none';
 }
 </script>
 </body>
