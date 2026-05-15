@@ -62,6 +62,7 @@ while ($row = $res->fetch_assoc()) $sched_data[$row['day_of_week']] = $row;
         .alert-success { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; padding: 14px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; }
         @media (max-width: 640px) { .day-row { grid-template-columns: 1fr 1fr; } .day-label { grid-column: 1/-1; } }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/doctor_sidebar.php'; ?>

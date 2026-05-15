@@ -73,6 +73,7 @@ ob_end_flush(); // flush output
 <title>Login</title>
 
 <link rel="stylesheet" href="assets/css/login.css?v=<?php echo time(); ?>">
+<?php include 'includes/speed_insights.php'; ?>
 </head>
 
 <body>

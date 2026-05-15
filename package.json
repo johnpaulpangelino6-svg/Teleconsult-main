@@ -1,0 +1,12 @@
+{
+  "name": "teleconsult-main",
+  "version": "1.0.0",
+  "description": "Community Teleconsult - Online Medical Consultation System for Local Communities",
+  "private": true,
+  "scripts": {
+    "postinstall": "echo 'Speed Insights package installed successfully'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}

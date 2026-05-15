@@ -88,6 +88,7 @@ $verified_count = $conn->query("SELECT COUNT(*) as c FROM payments WHERE status=
         .alert { padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 14px; font-weight: 500; }
         .alert-success { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/admin_sidebar.php'; ?>

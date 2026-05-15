@@ -63,6 +63,7 @@ $msg = $_GET['msg'] ?? '';
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/admin_dashboard.css">
+    <?php include '../includes/speed_insights.php'; ?>
     <style>
         .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
         .s-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 20px; }

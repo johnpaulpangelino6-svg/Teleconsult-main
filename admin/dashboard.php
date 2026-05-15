@@ -50,6 +50,7 @@ $revenueTrend = [32000, 35000, 38000, 45678, 0, 0]; // Static for current demo a
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/admin_dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 

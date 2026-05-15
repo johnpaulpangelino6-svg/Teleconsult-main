@@ -59,6 +59,7 @@ $unread = $conn->query("SELECT COUNT(*) as c FROM notifications WHERE user_id = 
         .empty-notifs { text-align:center; padding:80px 20px; color:#475569; }
         .empty-notifs i { font-size:3rem; margin-bottom:16px; display:block; }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/patient_sidebar.php'; ?>
