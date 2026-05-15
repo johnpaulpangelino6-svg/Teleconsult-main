@@ -93,6 +93,7 @@ $patients = $conn->query("
         .alert-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
         @media (max-width: 900px) { .fu-layout { grid-template-columns: 1fr; } }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/doctor_sidebar.php'; ?>

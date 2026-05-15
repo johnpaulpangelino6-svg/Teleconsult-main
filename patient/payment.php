@@ -104,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $appt && !$existing_payment) {
         .alert-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
         #gcash-fields { display: none; }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/patient_sidebar.php'; ?>

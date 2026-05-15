@@ -236,6 +236,7 @@ if ($report_type == 'appointments') {
             @page { margin: 1cm; }
         }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/admin_sidebar.php'; ?>

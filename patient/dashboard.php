@@ -43,6 +43,7 @@ $colors = ['#06b6d4','#f43f5e','#3b82f6','#a855f7','#10b981','#f59e0b'];
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/user_dashboard.css">
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 

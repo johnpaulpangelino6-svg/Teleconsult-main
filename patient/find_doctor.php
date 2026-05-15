@@ -73,6 +73,7 @@ $specs = $conn->query("SELECT DISTINCT specialization FROM users WHERE role='doc
         .btn-book:hover { background: #2563eb; }
         .no-results { text-align: center; padding: 80px 20px; color: #475569; grid-column: 1/-1; }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/patient_sidebar.php'; ?>

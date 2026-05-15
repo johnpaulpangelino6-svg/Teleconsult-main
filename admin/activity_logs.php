@@ -44,6 +44,7 @@ $logs = $conn->query("
         .rp-doctor { background: rgba(59,130,246,0.15); color: #3b82f6; }
         .rp-patient { background: rgba(34,197,94,0.15); color: #22c55e; }
     </style>
+    <?php include '../includes/speed_insights.php'; ?>
 </head>
 <body>
 <?php include '../includes/admin_sidebar.php'; ?>
